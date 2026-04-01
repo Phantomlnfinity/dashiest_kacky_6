@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  	<meta charset="utf-8">
+  	<title>Kacky</title>
+  	<link href="style.css" rel="stylesheet" />
+</head>
+<body>
+	<div id="header">
+		<div id="navbar">
+			<button onclick="show(this, 'tracks')">Tracks</button>
+			<button onclick="show(this, 'leaderboard')">Leaderboard</button>
+		</div>
+	</div>
+
+	<div id="trackContainer" hidden>
+		<div class="sort">
+			<div class="options">
+				<button onclick="changeSort(this)" class="active num">Number</button>
+				<button onclick="changeSort(this)" class="mapper">Mapper</button>
+				<button onclick="changeSort(this)" class="fins">Finishes</button>
+				<button onclick="changeSort(this)" class="diff">Difficulty</button>
+				<button onclick="changeSort(this)" class="pos">Position</button>
+			</div>
+			<button class="toggle" onclick="toggleSort()"></button>
+		</div>
+		<div class="list"></div>
+	</div>
+
+	<div id="lbContainer" hidden>
+		<table id="leaderboard">
+			<tr><th>#</th><th>Player</th><th>Finishes</th><th>Position</th><th>WRs</th></tr>
+		</table>
+
+		<div id="profileContainer" hidden>
+			<button class="back" onclick="document.querySelector('#profileContainer').hidden = true; document.querySelector('#leaderboard').hidden = false;">Back to leaderboard</button>
+			<div class="header">
+				<div class="pos">#1</div>
+				<div class="username">Test User</div>
+			</div>
+			<div class="stats">
+				<div class="stat fins">
+					<div class="label">Finishes</div>
+					<div class="value">5</div>
+				</div>
+				<div class="stat pos">
+					<div class="label">Average Position</div>
+					<div class="value">3.52</div>
+				</div>
+				<div class="stat wrs">
+					<div class="label">World Records</div>
+					<div class="value">2</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+  	<script src="script.js"></script>
+</body>
+</html>
