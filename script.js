@@ -1,31 +1,31 @@
 const cols = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 // DK6 sheet
-// let sheet = {
-// 	id: "",
-// 	tracks: {
-// 		gid: 0,
-// 		startRow: 2,
-// 		diffCol: cols.indexOf("B"),
-// 		idCol: cols.indexOf("C"),
-// 	},
-// 	overrides: {
-// 		gid: 739603910,
-// 		startRow: 2,
-// 		userCol: cols.indexOf("A"),
-// 		trackCol: cols.indexOf("B"),
-// 		timeCol: cols.indexOf("C"),
-// 	},
-// }
+let sheet = {
+	id: "15EZtPEj4sNKI1ep9omKae5bOCmto-C0bLKQm0oQmwhg",
+	tracks: {
+		gid: 0,
+		startRow: 2,
+		diffCol: cols.indexOf("B"),
+		idCol: cols.indexOf("C"),
+	},
+	overrides: {
+		gid: 739603910,
+		startRow: 2,
+		userCol: cols.indexOf("A"),
+		trackCol: cols.indexOf("B"),
+		timeCol: cols.indexOf("C"),
+	},
+}
 
 // DK5 sheet
-let sheet = {
+/* let sheet = {
 	id: "1PTKZi8UZHOy_lyItFzUrrc2XZ3o-TNQsj7jhuxU8k2U",
 	tracks: {
 		gid: 0,
 		startRow: 2,
 		idCol: cols.indexOf("B"),
 	},
-}
+} */
 
 let dashcraftKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWJiMzc3OWIzMDhjMWRjMjZhMTQ5ZDQiLCJpbnRlbnQiOiJvQXV0aCIsImlhdCI6MTc3Mzg3NzExM30.5cmyo7mKCeFn2IoZVoZwAdIRb76Rfvuu4-7CZyhG8_E"
 
@@ -84,14 +84,12 @@ async function getSheetData() {
 		.then((text) => {
 			let json = JSON.parse(text.substring(47, text.length - 2)).table;
 			let startRow = sheet.tracks.startRow - json.parsedNumHeaders - 1;
-			let difficulty;
-			if (sheet.tracks.diffCol) {
-				difficulty = ["white", "green", "blue", "red", "black"].indexOf(row.c[sheet.tracks.diffCol].v.toLowerCase());
-			} else {
-				difficulty = "white";
-				document.querySelector(".sort .options .diff").classList.add("inactive");
-			}
-			let data = json.rows.slice(startRow).map((row) => [row.c[sheet.tracks.idCol].v.slice(-24), difficulty]);
+			let colors = ["white", "green", "blue", "red", "black"];
+			let data = json.rows.slice(startRow).map((row) => {
+				let id = row.c[sheet.tracks.idCol].v.slice(-24);
+				let difficulty = colors.indexOf(sheet.tracks.diffCol ? row.c[sheet.tracks.diffCol].v.toLowerCase() : 0);
+				return [id, difficulty];
+			});
 			data = Object.fromEntries(data);
 			console.log(data);
 			return data;
